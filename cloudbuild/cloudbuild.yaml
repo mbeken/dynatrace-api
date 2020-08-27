@@ -69,7 +69,7 @@ steps:
 
 # Define image so that it is pushed (think cached for next build)
 images: ['eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest']
-secrets:
-  - kmsKeyName: 'projects/tidbitz/locations/global/keyRings/cloud-build/cryptoKeys/pypi-password' 
-    secretEnv:
-      PYPI_PASSWORD: 'CiQAOgNfDqbt0KjcP/dh7QJ+ZGag+DZTw9/NHmJ7AL9Dos0ys8QSNQDNmejPkfSs3XG/Z3dRq8Aj4RU8MEg4mecWiBpaIEZRpyipvvJxKATKnsLhfcpDmo8YDOzD'
+# secrets:
+#   - kmsKeyName: 'projects/tidbitz/locations/global/keyRings/cloud-build/cryptoKeys/pypi-password' 
+#     secretEnv:
+#       PYPI_PASSWORD: 'CiQAOgNfDqbt0KjcP/dh7QJ+ZGag+DZTw9/NHmJ7AL9Dos0ys8QSNQDNmejPkfSs3XG/Z3dRq8Aj4RU8MEg4mecWiBpaIEZRpyipvvJxKATKnsLhfcpDmo8YDOzD'
