@@ -56,6 +56,9 @@ steps:
     # Deploy to PyPI if its a new version number
     #        
 
+    - name: gcr.io/cloud-builders/gcloud
+      entrypoint: 'bash'
+      args: [ '-c', "gcloud secrets versions access latest --secret=pypi_test_password --format='get(payload.data)' | tr '_-' '/+' | base64 -d > decrypted-data.txt" ]
     # - name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
     #   id: 'push to pypi'
     #   secretEnv: ['PYPI_PASSWORD']
