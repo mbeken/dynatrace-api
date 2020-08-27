@@ -10,7 +10,7 @@ steps:
       args:
       - '-c'
       - |
-        docker pull eu.gcr.io/$PROJECT_ID/pyslo-builder:latest || exit 0    
+        docker pull eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest || exit 0    
     #  Build image, using cahced image if available.
     - id: build-builder
       name: gcr.io/cloud-builders/docker
@@ -18,8 +18,8 @@ steps:
       args: [
                 'build',
                 '--rm=false',
-                '-t','eu.gcr.io/$PROJECT_ID/pyslo-builder:latest',
-                '--cache-from', 'eu.gcr.io/$PROJECT_ID/pyslo-builder:latest',
+                '-t','eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest',
+                '--cache-from', 'eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest',
                 '-f', './Dockerfile', '.'
         ]
     
@@ -28,14 +28,14 @@ steps:
     #
 
     # - id: lint
-    #   name: eu.gcr.io/$PROJECT_ID/pyslo-builder:latest
-    #   dir: pyslo
-    #   entrypoint: flake8
+    #   name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
+    #   dir: dynatrace_api
+    #   entrypoint: pylint
     #   waitFor:
     #     - build-builder
 
     - id: test
-      name: eu.gcr.io/$PROJECT_ID/pyslo-builder:latest
+      name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       args: ['cloudbuild/scripts/test.sh']
       waitFor:
         # - lint
@@ -47,7 +47,7 @@ steps:
     # 
 
     - id: build-package
-      name: eu.gcr.io/$PROJECT_ID/pyslo-builder:latest
+      name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       args: ['cloudbuild/scripts/build.sh']
       waitFor:
         - test      
@@ -56,16 +56,16 @@ steps:
     # Deploy to PyPI if its a new version number
     #        
 
-    - name: eu.gcr.io/$PROJECT_ID/pyslo-builder:latest
-      id: 'push to pypi'
-      secretEnv: ['PYPI_PASSWORD']
-      env: ['_PYPI_USERNAME=mbeken']
-      args: ['cloudbuild/scripts/deploy.sh']
-      waitFor:
-        - build-package
+    # - name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
+    #   id: 'push to pypi'
+    #   secretEnv: ['PYPI_PASSWORD']
+    #   env: ['_PYPI_USERNAME=mbeken']
+    #   args: ['cloudbuild/scripts/deploy.sh']
+    #   waitFor:
+    #     - build-package
 
 # Define image so that it is pushed (think cached for next build)
-images: ['eu.gcr.io/$PROJECT_ID/pyslo-builder:latest']
+images: ['eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest']
 secrets:
   - kmsKeyName: 'projects/tidbitz/locations/global/keyRings/cloud-build/cryptoKeys/pypi-password' 
     secretEnv:
