@@ -30,7 +30,7 @@ steps:
     - id: lint
       name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       entrypoint: 'bash'
-      dir: dynatrace_api
+      # dir: dynatrace_api
       args: ['pylint', '.']
       waitFor:
         - build-builder
