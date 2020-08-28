@@ -60,6 +60,7 @@ steps:
     #        
 
     - name: gcr.io/cloud-builders/gcloud
+      id: 'get-secrets'
       entrypoint: 'bash'
       args: [ '-c', "gcloud secrets versions access latest --secret=pypi_test_password --format='get(payload.data)' | tr '_-' '/+' | base64 -d > decrypted-data.txt" ]
     - name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
@@ -68,7 +69,7 @@ steps:
       env: ['_PYPI_USERNAME=mbeken', '_PYPI_ENV=$_PYPI_ENV']
       args: ['cloudbuild/scripts/deploy.sh']
       waitFor:
-        - build-package
+        - get-secrets
 
 # Define image so that it is pushed (think cached for next build)
 images: ['eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest']
