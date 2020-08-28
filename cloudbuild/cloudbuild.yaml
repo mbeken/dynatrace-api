@@ -27,12 +27,12 @@ steps:
     # Testing
     #
 
-    # - id: lint
-    #   name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
-    #   dir: dynatrace_api
-    #   entrypoint: pylint
-    #   waitFor:
-    #     - build-builder
+    - id: lint
+      name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
+      dir: dynatrace_api
+      entrypoint: pylint dynatrace_api
+      waitFor:
+        - build-builder
 
     - id: test
       name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
