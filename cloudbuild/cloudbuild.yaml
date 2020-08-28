@@ -31,7 +31,7 @@ steps:
       name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       entrypoint: 'bash'
       # dir: dynatrace_api
-      args: ['ls]
+      args: ['ls']
       waitFor:
         - build-builder
 
