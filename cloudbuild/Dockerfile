@@ -7,4 +7,4 @@ RUN pip3 install --trusted-host pypi.python.org \
     yolk3k \
     pylint
 
-ENTRYPOINT [ "/bin/sh" ]
+# ENTRYPOINT [ "/bin/sh" ]
