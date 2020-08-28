@@ -31,7 +31,7 @@ steps:
       name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       entrypoint: 'bash'
       # dir: dynatrace_api
-      args: ['pylint']
+      args: ['pylint dynatrace_api']
       waitFor:
         - build-builder
 
@@ -41,7 +41,7 @@ steps:
       args: ['cloudbuild/scripts/test.sh']
       waitFor:
         # - lint
-        - build-builder
+        - lint
 
     # 
     # Build package. Note we build to persistent storage
