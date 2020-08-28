@@ -1,10 +1,10 @@
-"""[   summary]    
+"""[   summary]
 """
 
 __version__ = '0.0.2'
 
 
-def doc_test(something, optional=None):
+def doc_test(something, optional=2):
     """[summary]
 
     Args:
@@ -17,7 +17,7 @@ def doc_test(something, optional=None):
     Returns:
         [type]: [description]
     """
+    something = optional
     if something:
         return True
-    else:
-        raise Exception
+    raise Exception
