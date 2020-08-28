@@ -27,13 +27,13 @@ steps:
     # Testing
     #
 
-    # - id: lint
-    #   name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
-    #   entrypoint: 'bash'
-    #   # dir: dynatrace_api
-    #   args: ['cloudbuild/scripts/test.sh']
-    #   waitFor:
-    #     - build-builder
+    - id: lint
+      name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
+      entrypoint: 'bash'
+      # dir: dynatrace_api
+      args: ['cloudbuild/scripts/test.sh']
+      waitFor:
+        - build-builder
 
     - id: test
       name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
