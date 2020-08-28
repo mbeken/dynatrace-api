@@ -65,6 +65,7 @@ steps:
       args: [ '-c', "gcloud secrets versions access latest --secret=pypi_test_password --format='get(payload.data)' | tr '_-' '/+' | base64 -d > decrypted-data.txt" ]
     - name: eu.gcr.io/$PROJECT_ID/dynatrace-builder:latest
       id: 'push to pypi'
+      entrypoint: 'bash'
       # secretEnv: ['PYPI_PASSWORD']
       env: ['_PYPI_USERNAME=mbeken', '_PYPI_ENV=$_PYPI_ENV']
       args: ['cloudbuild/scripts/deploy.sh']
